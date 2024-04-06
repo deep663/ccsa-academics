@@ -40,6 +40,9 @@ function Header() {
             >
               <div className="px-4 py-3">
                 <span className="block text-sm text-gray-900 dark:text-white">
+                  hjkhjegderujtgduirgdhjrdu
+                  dklghrdiruyidrekd
+                  kgdruyt
                   Bonnie Green
                 </span>
                 <span className="block text-sm  text-gray-500 truncate dark:text-gray-400">
