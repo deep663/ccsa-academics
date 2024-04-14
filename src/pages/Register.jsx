@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
-import Footer from "./Footer";
+import Footer from "../components/Footer";
 
 function Register() {
   const [user, setUser] = useState(null);
@@ -30,7 +30,7 @@ function Register() {
 
   return (
     <>
-      <nav className="flex px-4 py-4 bg-white border-gray-200 dark:bg-gray-900 justify-between">
+      <nav className="flex px-4 py-4 bg-slate-50 border-gray-200 dark:bg-gray-900 justify-between">
         <NavLink
           to="/"
           className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse"
@@ -49,10 +49,10 @@ function Register() {
         </NavLink>
       </nav>
 
-      <div className=" w-full flex items-center justify-center text-center mx-auto  md:h-screen bg-white dark:bg-gray-900">
+      <div className=" w-full flex items-center justify-center text-center mx-auto  md:h-screen ">
         
       <div id="loginCheck"
-          className="flex flex-col justify-center items-center w-full h-[68vh] md:h-15 bg-white md:rounded-lg md:shadow-lg dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 gap-4"
+          className="flex flex-col justify-center items-center w-full h-screen bg-white md:rounded-lg md:shadow-lg dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 gap-4"
         >
           <div className="text-xl md:text-2xl font-bold dark:text-white">
             Register as

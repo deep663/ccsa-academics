@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
-import Footer from "./Footer";
+import Footer from "../components/Footer";
 
 function Login() {
   const [email, setEmail] = useState("");
