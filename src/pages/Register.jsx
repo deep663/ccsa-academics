@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import Footer from "../components/Footer";
+import logo from "../assets/uniLogo.png";
 
 function Register() {
   const [user, setUser] = useState(null);
@@ -18,7 +19,7 @@ function Register() {
     setName("");
     setStandart("");
     setAge("");
-    setEmail("");
+    setEmail(""); 
     setPassword("");
   }
 
@@ -30,42 +31,45 @@ function Register() {
 
   return (
     <>
-      <nav className="flex px-4 py-4 bg-slate-50 border-gray-200 dark:bg-gray-900 justify-between">
-        <NavLink
-          to="/"
-          className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse"
+      <div className="w-full flex items-center justify-center
+       text-center mx-auto  md:h-screen bg-slate-400">
+        
+        <div id="loginCheck"
+          className="flex flex-col justify-center items-center 
+            w-full h-[68vh] md:h-15
+           bg-white md:rounded-lg md:shadow-xl dark:border 
+           md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 
+           dark:border-gray-700 gap-4"
         >
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-            Study Guide
-          </span>
-        </NavLink>
-        <NavLink
+          <div className="flex flex-col justify-center items-center">
+            <img src={logo} alt="Dibru" className="h-20 drop-shadow-lg" />
+            <p className=" text-xl md:text-2xl font-bold">CCSA ACADEMICS</p>
+          </div>
+          <div className="text-xl md:text-2xl font-bold dark:text-white">
+            Register as
+          </div>
+          <div className="flex items-center justify-between p-6 text-white space-x-8 mx-auto">
+            <button value={"Admin"} onClick={(e)=>handleCheckLogin(e.target.value)} className="border-2  dark:border-gray-200 rounded-lg px-4 py-2 md:text-2xl bg-[#1f5ad9] hover:bg-[#13178f]">
+              Admin
+            </button>
+            <button value={"Parent"} onClick={(e)=>handleCheckLogin(e.target.value)} className="border-2  dark:border-gray-200 rounded-lg px-4 py-2 md:text-2xl bg-[#1f5ad9] hover:bg-[#13178f]">
+              Parent
+            </button>
+          </div>
+          <div>
+            <p>Alreday have a account ?
+              <NavLink
           to="/login"
           className={
-            "dark:text-white text-center border-2 border-gray-700 bg-green-600 rounded-md px-4 py-1 my-2 md:my-0 md:mx-4"
+            "text-[#293dd0]"
           }
         >
           Log In
         </NavLink>
-      </nav>
-
-      <div className=" w-full flex items-center justify-center text-center mx-auto  md:h-screen ">
-        
-      <div id="loginCheck"
-          className="flex flex-col justify-center items-center w-full h-screen bg-white md:rounded-lg md:shadow-lg dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 gap-4"
-        >
-          <div className="text-xl md:text-2xl font-bold dark:text-white">
-            Register as
-          </div>
-          <div className="flex items-center justify-between p-6 dark:text-white space-x-8 mx-auto">
-            <button value={"Admin"} onClick={(e)=>handleCheckLogin(e.target.value)} className="border-2 border-gray-900 dark:border-gray-200 rounded-md px-4 py-2 md:text-2xl bg-green-600 hover:bg-green-500">
-              Admin
-            </button>
-            <button value={"Parent"} onClick={(e)=>handleCheckLogin(e.target.value)} className="border-2 border-gray-900 dark:border-gray-200 rounded-md px-4 py-2 md:text-2xl bg-green-600 hover:bg-green-500">
-              Parent
-            </button>
+            </p>
           </div>
         </div>
+      
 
         <div id="register" className="hidden w-full h-[68vh] md:h-auto bg-white md:rounded-lg md:shadow-lg dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 ">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
