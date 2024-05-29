@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import Footer from "../components/Footer";
+import logo from "../assets/uniLogo.png";
 
 function Login() {
   const [email, setEmail] = useState("");
