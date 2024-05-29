@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import Footer from "../components/Footer";
+import logo from "../assets/uniLogo.png";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -26,36 +27,27 @@ function Login() {
 
   return (
     <>
-      <nav className="flex px-4 py-4 h-20 bg-[#1f2f52] border-gray-200 dark:bg-gray-900 justify-between">
-        <NavLink
-          to="/"
-          className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse"
-        >
-          <span className="self-center text-2xl font-semibold whitespace-nowrap text-[#fbfbfb]">
-            CCSA ACADEMICS
-          </span>
-        </NavLink>
-        <NavLink
-          to="/register"
-          className={
-            "dark:text-white text-center border-2 border-gray-700 dark:border-gray-200 bg-[#409d5e] rounded-md px-4 py-1 my-2 md:my-0 md:mx-4 hover:bg-[#26643d]"
-          }
-        >
-          Register
-        </NavLink>
-      </nav>
-      <div className="w-full flex items-center justify-center text-center mx-auto  md:h-screen dark:bg-gray-900 z-0">
+      <div className="w-full flex items-center justify-center
+       text-center mx-auto  md:h-screen bg-slate-400">
         <div id="loginCheck"
-          className="flex flex-col justify-center items-center w-full h-[68vh] md:h-15 bg-white md:rounded-lg md:shadow-lg dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 gap-4"
-        >
+          className="flex flex-col justify-center items-center 
+            w-full h-[68vh] md:h-15
+           bg-white md:rounded-lg md:shadow-xl dark:border 
+           md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 
+           dark:border-gray-700 gap-4"
+        > 
+          <div className="flex flex-col justify-center items-center">
+            <img src={logo} alt="Dibru" className="h-20 drop-shadow-lg" />
+            <p className=" text-xl md:text-2xl font-bold">CCSA ACADEMICS</p>
+          </div>
           <div className="text-xl md:text-2xl font-bold dark:text-white">
             Login as
           </div>
-          <div className="flex items-center justify-between p-6 dark:text-white space-x-8 mx-auto">
-            <button value={"Admin"} onClick={(e)=>handleCheckLogin(e.target.value)} className="border-2 border-gray-900 dark:border-gray-200 rounded-md px-4 py-2 md:text-2xl bg-[#409d5e] hover:bg-[#26643d]">
+          <div className="flex items-center justify-between p-6 text-white space-x-8 mx-auto">
+            <button value={"Admin"} onClick={(e)=>handleCheckLogin(e.target.value)} className="border-2  dark:border-gray-200 rounded-lg px-4 py-2 md:text-2xl bg-[#1f5ad9] hover:bg-[#13178f]">
               Teacher
             </button>
-            <button value={"Parent"} onClick={(e)=>handleCheckLogin(e.target.value)} className="border-2 border-gray-900 dark:border-gray-200 rounded-md px-4 py-2 md:text-2xl bg-[#409d5e] hover:bg-[#26643d]">
+            <button value={"Parent"} onClick={(e)=>handleCheckLogin(e.target.value)} className="border-2  dark:border-gray-200 rounded-lg px-4 py-2 md:text-2xl bg-[#1f5ad9] hover:bg-[#13178f]">
               Student
             </button>
           </div>
