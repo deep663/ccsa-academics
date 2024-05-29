@@ -9,6 +9,10 @@ import InsemMarks from './pages/InsemMarks'
 import Lab from './pages/Lab'
 import About from './pages/About'
 import Pagenotfound from './pages/Pagenotfound'
+import TeacherReg from './components/TeacherReg'
+import StudentReg from './components/StudentReg'
+import StudentLogin from './components/StudentLogin'
+import TeacherLogin from './components/TeacherLogin'
 
 function App() {
   const router = createBrowserRouter([
@@ -27,6 +31,22 @@ function App() {
     {
       path: "/register",
       element: <Register/>
+    },
+    {
+      path: "/teacherreg",
+      element: <TeacherReg/>
+    },
+    {
+      path: "/studentreg",
+      element: <StudentReg/>
+    },
+    {
+      path: "/studentlogin",
+      element: <StudentLogin/>
+    },
+    {
+      path: "/teacherlogin",
+      element: <TeacherLogin/>
     },
     {
       path: "/assignment",

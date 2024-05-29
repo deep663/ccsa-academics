@@ -2,7 +2,7 @@ import { useState } from "react";
 import logo from "../assets/uniLogo.png";
 import Footer from "./Footer";
 
-const TeacherReg = () => {
+const StudentReg = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,7 +24,7 @@ const TeacherReg = () => {
   return (
     <>
       <div className="min-h-screen flex">
-        <div className="w-1/2 bg-[#13178f] text-white flex flex-col justify-center p-8">
+      <div className="w-1/2 bg-[#13178f] text-white flex flex-col justify-center p-8">
           <div className="mb-8 flex justify-center items-center">
             <img src={logo} alt="University Logo" className="h-40" />
           </div>
@@ -41,9 +41,7 @@ const TeacherReg = () => {
           </p> */}
         </div>
         <div className="w-1/2 bg-white flex flex-col justify-center p-8">
-          <h2 className="text-3xl font-bold mb-8 text-[#13178f]">
-            Teacher Register
-          </h2>
+          <h2 className="text-3xl font-bold mb-8 text-[#13178f]">Student Register</h2>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label className="block text-gray-700">Name</label>
@@ -93,10 +91,11 @@ const TeacherReg = () => {
             </button>
           </form>
         </div>
+        
       </div>
       <Footer />
     </>
   );
 };
 
-export default TeacherReg;
+export default StudentReg;
