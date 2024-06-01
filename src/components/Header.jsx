@@ -13,16 +13,10 @@ import {
 import logo from "../assets/uniLogo.png";
 import profile from "../assets/profile.png";
 import { NavLink } from "react-router-dom";
-import { Sidebar } from "./Sidebar";
-// import { useState } from "react";
-import SidebarItems from "./Sidebaritems";
-// import Sidebar from "./Sidebar";
-// import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalProps, useDisclosure } from "@nextui-org/modal";
 
 
 function Header() {
-  // const { isOpen, onOpen, onOpenChange } = useDisclosure();
-    // const [menuOpen, setMenuOpen] = useState(false);
+
 
   return (
     <>
@@ -57,7 +51,6 @@ function Header() {
                 <p className="font-semibold">Signed in as</p>
                 <p className="font-semibold">zoey@example.com</p>
               </DropdownItem>
-              <DropdownItem key="settings">My Settings</DropdownItem>
               <DropdownItem key="logout" color="danger">
                 Log Out
               </DropdownItem>

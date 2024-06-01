@@ -13,12 +13,17 @@ import TeacherReg from './components/TeacherReg'
 import StudentReg from './components/StudentReg'
 import StudentLogin from './components/StudentLogin'
 import TeacherLogin from './components/TeacherLogin'
+import TeacherDesboard from './pages/TeacherDesboard'
 
 function App() {
   const router = createBrowserRouter([
     {
       path: "/",
       element: <Dashboard/>
+    },
+        {
+      path: "/techerdesboard",
+      element: <TeacherDesboard/>
     },
     {
       path: "/about",
