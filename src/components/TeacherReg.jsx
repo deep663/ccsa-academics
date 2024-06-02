@@ -1,24 +1,33 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import logo from "../assets/uniLogo.png";
 import Footer from "./Footer";
+
 
 const TeacherReg = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [phoneNo, setPhoneNo] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Handle register logic here
     if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+      setErrorMessage('Passwords do not match!');
       return;
     }
-    console.log("Name:", name);
-    console.log("Email:", email);
-    console.log("Password:", password);
+
+    try{
+      //reg
+      setErrorMessage('');
+      alert('Form submitted successfully!');
+      navigate('/teacherlogin');
+    } catch (error) {
+      setErrorMessage(error.message);
+    }
   };
 
   return (
@@ -33,12 +42,6 @@ const TeacherReg = () => {
               Centre for Computer Science and Applications
             </h2>
           </div>
-          {/* <p className="text-lg">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </p> */}
         </div>
         <div className="w-1/2 bg-white flex flex-col justify-center p-8">
           <h2 className="text-3xl font-bold mb-8 text-[#13178f]">
@@ -66,6 +69,16 @@ const TeacherReg = () => {
               />
             </div>
             <div>
+              <label className="block text-gray-700">Phone</label>
+              <input
+                type="phone"
+                value={phoneNo}
+                onChange={(e) => setPhoneNo(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded mt-1"
+                required
+              />
+            </div>
+            <div>
               <label className="block text-gray-700">Password</label>
               <input
                 type="password"
@@ -85,6 +98,7 @@ const TeacherReg = () => {
                 required
               />
             </div>
+            {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
             <button
               type="submit"
               className="w-full bg-[#1f5ad9] text-white py-2 rounded hover:bg-[#13178f] transition duration-200"
