@@ -1,21 +1,11 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { useState } from "react";
 import Footer from "../components/Footer";
 import logo from "../assets/uniLogo.png";
 
 function Login() {
-  const [user, setUser] = useState(null);
 
   let navigate = useNavigate(); 
 
-  function handleCheckLogin(value) {
-    setUser(value);
-    if (user === "teacher") {
-      navigate("/teacherlogin");
-    } else if (user === "student") {
-      navigate("/studentlogin");
-    }
-  }
 
   return (
     <>
@@ -37,15 +27,16 @@ function Login() {
             Login as
           </div>
           <div className="flex items-center justify-between p-6 text-white space-x-8 mx-auto">
-            <button value={"teacher"} onClick={(e)=>handleCheckLogin(e.target.value)} className="border-2  dark:border-gray-200 rounded-lg px-4 py-2 md:text-2xl bg-[#1f5ad9] hover:bg-[#13178f]">
+            <button value={"teacher"} onClick={()=>navigate("/teacherlogin")} className="border-2  dark:border-gray-200 rounded-lg px-4 py-2 md:text-2xl bg-[#1f5ad9] hover:bg-[#13178f]">
               Teacher
             </button>
-            <button value={"student"} onClick={(e)=>handleCheckLogin(e.target.value)} className="border-2  dark:border-gray-200 rounded-lg px-4 py-2 md:text-2xl bg-[#1f5ad9] hover:bg-[#13178f]">
+            <button value={"student"} onClick={()=>navigate("/studentlogin")} className="border-2  dark:border-gray-200 rounded-lg px-4 py-2 md:text-2xl bg-[#1f5ad9] hover:bg-[#13178f]">
               Student
             </button>
           </div>
           <div>
-            <p>Don't have an account ? 
+            <p>Don&apos;t have an account ? 
+
               <NavLink
           to="/register"
           className={
