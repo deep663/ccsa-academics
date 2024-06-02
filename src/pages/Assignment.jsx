@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Layout from "../components/Layout"
 import { Input, Button } from "@nextui-org/react"
+import axios from "axios";
 
 function Assignment() {
   const [title, setTitle] = useState("");
   const [file, setFile] = useState("");
   const [semester, setSemester] = useState("");
   const [course, setCourse] = useState("");
+  const [allImages, setAllImages] = useState(null);
 
   const submitData = async (el) => {
       el.preventDefault();
@@ -16,7 +18,26 @@ function Assignment() {
       formData.append("semester", semester);
       formData.append("course", course);
       console.log(title, semester, course, file);
+      const result = await axios.post("http://localhost:3000/upload-assignment", formData, {
+        headers: {"Content-Type": "multipart/form-data"},
+      });
+      console.log(result);
   }
+
+  const getAssignment =  async () => {
+    const assignmentData = await axios.get("http://localhost:3000/get-assignment");
+    console.log(assignmentData.data.data);
+    setAllImages(assignmentData.data.data);
+  };
+
+  useEffect(() => {
+    getAssignment();
+  },[]);
+
+  const showPdf=(pdf)=>{
+    window.open(`http://localhost:3000/files/${pdf}`, "_blank", "npreference");
+  }
+
   return (
     <Layout>
       <div className="h-[100vh]">
@@ -53,6 +74,22 @@ function Assignment() {
             />
             <Button color="primary" type="submit">Submit</Button>
           </form>
+        </div>
+        <div className="flex p-10 gap-4">
+          <h4>Uploaded Assignments -</h4>
+          <div className="flex gap-4">
+            {
+              allImages == null ? "" : allImages.map(data => {
+                return (
+                  <div key={data.id}>
+                  <h6>Title : {data.title}</h6>
+                  <Button color="primary" onClick={()=> showPdf(data.pdf)}>Showpdf</Button>
+                  </div>
+                )
+              })
+            }
+            
+          </div>
         </div>
       </div>
     </Layout>

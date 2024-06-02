@@ -14,17 +14,16 @@ import StudentReg from './components/StudentReg'
 import StudentLogin from './components/StudentLogin'
 import TeacherLogin from './components/TeacherLogin'
 import TeacherDesboard from './pages/TeacherDesboard'
-import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <ProtectedRoute element={Dashboard}/>
+      element: < Dashboard/>
     },
         {
       path: "/techerdesboard",
-      element: <ProtectedRoute element={TeacherDesboard}/>
+      element: <TeacherDesboard/>
     },
     {
       path: "/about",
@@ -56,19 +55,19 @@ function App() {
     },
     {
       path: "/assignment",
-      element: <ProtectedRoute element={Assignment}/>
+      element: <Assignment/>
     },
     {
       path:"/finalresults",
-      element: <ProtectedRoute element={FinalResults}/>
+      element: <FinalResults/>
     },
     {
       path: "/insemmarks",
-      element: <ProtectedRoute element={InsemMarks}/>
+      element: <InsemMarks/>
     },
     {
       path: "/lab",
-      element: <ProtectedRoute element={Lab}/>
+      element: <Lab/>
     },
     {
       path: "*",
