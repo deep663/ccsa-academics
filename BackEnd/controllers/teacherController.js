@@ -4,22 +4,28 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 //@desc Register a teacher
-//@route POST /api/users/teacherResgister
+//@route POST /api/user/teacherResgister
 //@access public
 const registerTeacher = asyncHandler(async (req, res) => {
-  const { id, name, email, phoneNo, password } = req.body;
-  if (!id || !name || !email || !phoneNo || !password) {
+  const { name, email, phoneNo, password } = req.body;
+  if (!name || !email || !phoneNo || !password) {
     res.status(400);
     throw new Error("Please add all fields");
   }
-  const userAvailable = await User.findOne({ email });
+  const userAvailable = await User.findOne({
+    $or: [{ email }, { phoneNo }],
+  });
   if (userAvailable) {
-    res.status(400);
-    throw new Error("User already registered");
+    let errorMessage = "User already registered with this ";
+    if (userAvailable.email === email) {
+      errorMessage += "email";
+    } else if (userAvailable.phoneNo === phoneNo) {
+      errorMessage += "phone number";
+    }
+    res.status(400).json(errorMessage);
   }
   const hashedPassword = await bcrypt.hash(password, 10);
   const user = await User.create({
-    id,
     name,
     email,
     phoneNo,
@@ -27,7 +33,7 @@ const registerTeacher = asyncHandler(async (req, res) => {
   });
 
   if (user) {
-    res.status(201).json({ _id: user.id, email: user.email });
+    res.status(201).json("User created successfully");
   } else {
     res.status(400);
     throw new Error("User data is not valid");
@@ -47,20 +53,26 @@ const loginTeacher = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email });
 
   if (!user) {
-    res.status(404);
+    res.status(404).json("Invalid credentials");
     throw new Error("No user found with this email");
   }
-  if (user) {
-    const passwordMatch = await bcrypt.compare(password, user.password);
-    if (!passwordMatch) {
-      res.status(401);
-      throw new Error("Email or password is not valid");
-    } else {
-      console.log("login successfull");
-    }
+  if (user && (await bcrypt.compare(password, user.password))) {
+    const accessToken = jwt.sign(
+      {
+        user: {
+          name: user.name,
+          email: user.email,
+          id: user._id,
+        },
+      },
+      process.env.ACCESS_TOKEN_SECRET,
+      { expiresIn: "1d" }
+    );
+    res.status(200).json({ accessToken });
+  } else {
+    res.status(400);
+    throw new Error("Invalid credentials");
   }
 });
 
 module.exports = { registerTeacher, loginTeacher };
-
-

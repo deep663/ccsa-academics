@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const studentSchema = mongoose.Schema({
+    userType: {
+        type: String,
+        default: "student",
+    },
     name: {
         type: String,
         required: [true, "Please add a name"],

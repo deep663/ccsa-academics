@@ -1,10 +1,13 @@
 const mongoose = require("mongoose");
 
 const teacherSchema = mongoose.Schema({
+    userType: {
+        type: String,
+        default: "teacher",
+    },
     Id: {
         type: String,
-        required: [true, "Please add an Id"],
-        unique: [true, "Id already exists"],
+        auto: true
     },
     name: {
         type: String,
