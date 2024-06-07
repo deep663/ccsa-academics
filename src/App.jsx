@@ -14,6 +14,7 @@ import StudentReg from './components/StudentReg'
 import StudentLogin from './components/StudentLogin'
 import TeacherLogin from './components/TeacherLogin'
 import TeacherDesboard from './pages/TeacherDesboard'
+import ViewAssignment from './pages/ViewAssignment'
 
 function App() {
   const router = createBrowserRouter([
@@ -56,6 +57,10 @@ function App() {
     {
       path: "/assignment",
       element: <Assignment/>
+    },
+    {
+      path:"/viewAssignment",
+      element:<ViewAssignment/>
     },
     {
       path:"/finalresults",
