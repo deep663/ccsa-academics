@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 //@desc Register a student
-//@route POST /api/users/studentResgister
+//@route POST /user/studentResgister
 //@access public
 const registerStudent = asyncHandler(async (req, res) => {
   const { name, rollNo, course, semester, email, phoneNo, password } = req.body;
@@ -14,8 +14,7 @@ const registerStudent = asyncHandler(async (req, res) => {
   }
   const userAvailable = await User.findOne({ email });
   if (userAvailable) {
-    res.status(400);
-    throw new Error("User already registered");
+    res.status(400).json("User already registered");
   }
   const hashedPassword = await bcrypt.hash(password, 10);
   const user = await User.create({
@@ -29,7 +28,7 @@ const registerStudent = asyncHandler(async (req, res) => {
   });
 
   if (user) {
-    res.status(201).json({ _id: user.id, email: user.email });
+    res.status(201).json("User registered successfully");
   } else {
     res.status(400);
     throw new Error("User data is not valid");
@@ -37,7 +36,7 @@ const registerStudent = asyncHandler(async (req, res) => {
 });
 
 //@desc Login a student
-//@route POST /api/users/studentLogin
+//@route POST /user/studentLogin
 //@access public
 const loginStudent = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
@@ -52,15 +51,21 @@ const loginStudent = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error("No user found with this email");
   }
-  if (user) {
-    const passwordMatch = await bcrypt.compare(password, user.password);
-    if (!passwordMatch) {
-      res.status(401);
-      throw new Error("Email or password is not valid");
-    } else {
-      res.status(200).json({ email: user.email });
-      console.log("login successfull");
-    }
+  if (user && (await bcrypt.compare(password, user.password))) {
+    const accessToken = jwt.sign({
+      user: {
+        userType: user.userType,
+        name: user.name,
+        email: user.email,
+    },
+    },
+    process.env.ACCESS_TOKEN_SECRET,
+    { expiresIn: "1d" },
+    );
+    res.status(200).json({ token: accessToken });
+  } else {
+    res.status(401);
+    throw new Error("Email or password is not valid");
   }
 });
 

@@ -12,11 +12,18 @@ import {
 
 import logo from "../assets/uniLogo.png";
 import profile from "../assets/profile.png";
-import { NavLink } from "react-router-dom";
-
+import { NavLink, useNavigate } from "react-router-dom";
+import useSignOut from "react-auth-kit/hooks/useSignOut";
+import useAuthUser from 'react-auth-kit/hooks/useAuthUser';
 
 function Header() {
-
+  const navigate = useNavigate();
+  const signOut = useSignOut();
+  const auth = useAuthUser();
+  const logOut = () => {
+    signOut();
+    navigate("/login");
+  };
 
   return (
     <>
@@ -48,10 +55,10 @@ function Header() {
             </DropdownTrigger>
             <DropdownMenu aria-label="Profile Actions" variant="flat">
               <DropdownItem key="profile" className="h-14 gap-2">
-                <p className="font-semibold">Signed in as</p>
-                <p className="font-semibold">zoey@example.com</p>
+                {/* <p className="font-semibold">Signed in as</p> */}
+                <p className="font-semibold">{auth.email}</p>
               </DropdownItem>
-              <DropdownItem key="logout" color="danger">
+              <DropdownItem key="logout" color="danger" onClick={logOut}>
                 Log Out
               </DropdownItem>
             </DropdownMenu>

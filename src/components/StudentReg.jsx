@@ -1,24 +1,56 @@
 import { useState } from "react";
 import logo from "../assets/uniLogo.png";
 import Footer from "./Footer";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const StudentReg = () => {
   const [name, setName] = useState("");
+  const [rollNo, setRollNo] = useState("");
+  const [course, setCourse] = useState("");
+  const [semester, setSemester] = useState("");
   const [email, setEmail] = useState("");
+  const [phoneNo, setPhoneNo] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Handle register logic here
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
-    console.log("Name:", name);
-    console.log("Email:", email);
-    console.log("Password:", password);
+
+    try {
+      const response = await axios.post("http://localhost:3000/user/studentRegister", {
+        name,
+        rollNo,
+        course,
+        semester,
+        email,
+        phoneNo,
+        password,
+      });
+
+      if (response.status === 201) {
+        alert("Registration successful!");
+        navigate('/studentlogin');
+      } else {
+        alert(`Registration failed`);
+        console.log(response.data);
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
+      if (error.response && error.response.data) {
+        alert(error.response.data);
+        console.log(error.response.data);
+      } else {
+        console.log(error);
+      }
+    }
   };
 
   return (
@@ -33,12 +65,6 @@ const StudentReg = () => {
               Centre for Computer Science and Applications
             </h2>
           </div>
-          {/* <p className="text-lg">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </p> */}
         </div>
         <div className="w-1/2 bg-white flex flex-col justify-center p-8">
           <h2 className="text-3xl font-bold mb-8 text-[#13178f]">Student Register</h2>
@@ -54,11 +80,51 @@ const StudentReg = () => {
               />
             </div>
             <div>
+              <label className="block text-gray-700">Roll No</label>
+              <input
+                type="text"
+                value={rollNo}
+                onChange={(e) => setRollNo(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded mt-1"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-gray-700">Course</label>
+              <input
+                type="text"
+                value={course}
+                onChange={(e) => setCourse(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded mt-1"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-gray-700"> Semester </label>
+              <input
+                type="text"
+                value={semester}
+                onChange={(e) => setSemester(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded mt-1"
+                required
+              />
+            </div>
+            <div>
               <label className="block text-gray-700">Email</label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded mt-1"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-gray-700">Phone No.</label>
+              <input
+                type="text"
+                value={phoneNo}
+                onChange={(e) => setPhoneNo(e.target.value)}
                 className="w-full p-2 border border-gray-300 rounded mt-1"
                 required
               />

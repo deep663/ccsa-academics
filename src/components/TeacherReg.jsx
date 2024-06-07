@@ -2,31 +2,49 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/uniLogo.png";
 import Footer from "./Footer";
-
+import axios from "axios";
 
 const TeacherReg = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [phoneNo, setPhoneNo] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [phoneNo, setPhoneNo] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      setErrorMessage('Passwords do not match!');
+      setErrorMessage("Passwords do not match!");
       return;
     }
 
-    try{
-      //reg
-      setErrorMessage('');
-      alert('Form submitted successfully!');
-      navigate('/teacherlogin');
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/user/teacherRegister",
+        {
+          name,
+          email,
+          phoneNo,
+          password,
+        }
+      );
+      if (response.status === 201) {
+        alert("Registration successful!");
+        navigate('/teacherlogin');
+      } else {
+        alert(`Registration failed`);
+        console.log(response.data);
+      }
     } catch (error) {
-      setErrorMessage(error.message);
+      console.error("Error during registration:", error);
+      if (error.response && error.response.data) {
+        alert(error.response.data);
+        console.log(error.response.data);
+      } else {
+        console.log(error);
+      }
     }
   };
 
@@ -69,7 +87,7 @@ const TeacherReg = () => {
               />
             </div>
             <div>
-              <label className="block text-gray-700">Phone</label>
+              <label className="block text-gray-700">Phone No</label>
               <input
                 type="phone"
                 value={phoneNo}
@@ -98,7 +116,7 @@ const TeacherReg = () => {
                 required
               />
             </div>
-            {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
+            {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
             <button
               type="submit"
               className="w-full bg-[#1f5ad9] text-white py-2 rounded hover:bg-[#13178f] transition duration-200"
