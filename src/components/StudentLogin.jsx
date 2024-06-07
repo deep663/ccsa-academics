@@ -33,10 +33,11 @@ const StudentLogin = () => {
       if (response.status === 200) {
         alert("Login successful");
         navigate("/");
-      } else {
-        alert("Invalid email or password");
       }
     } catch (error) {
+      if(error.response.status === 401){
+        alert("Invalid email or password");
+      }
       console.error(error);
     }
   };

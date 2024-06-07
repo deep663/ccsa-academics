@@ -35,7 +35,9 @@ const TeacherLogin = () => {
         navigate("/teacherdashboard");
       }
     } catch (error) {
-      alert("Invalid email or password");
+      if(error.response.status === 401){
+        alert("Invalid email or password");
+      }
       console.error(error);
     }
   };

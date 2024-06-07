@@ -33,8 +33,8 @@ function App() {
           <Route path="/finalresults" element={<FinalResults />} />
           <Route path="/insemmarks" element={<InsemMarks />} />
           <Route path="/lab" element={<Lab />} />
-          <Route path="*" element={<Pagenotfound />} />
         </Route>
+        <Route path="*" element={<Pagenotfound />} />
       </Routes>
     </Router>
   );
