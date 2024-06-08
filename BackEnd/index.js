@@ -59,7 +59,7 @@ app.post("/upload-assignment", upload.single("file"), async(req, res) => {
   }
 })
 
-app.get("/get-assignment", async(req, res) => {
+app.get("/get-assignment", async(req, res) => { 
   try {
     assignmentSchema.find({}).then((data) => {
       res.send({status:"ok", data: data});

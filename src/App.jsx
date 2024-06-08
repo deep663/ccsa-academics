@@ -16,6 +16,7 @@ import TeacherLogin from "./components/TeacherLogin";
 import TeacherDesboard from "./pages/TeacherDesboard";
 import AuthOutlet from "@auth-kit/react-router/AuthOutlet";
 function App() {
+
   return (
     <Router>
       <Routes>
