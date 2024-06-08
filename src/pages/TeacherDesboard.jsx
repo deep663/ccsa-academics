@@ -1,12 +1,64 @@
-import Layout from "../components/Layout"
-import SidebarItems from "../components/Sidebaritems"
-import {Avatar} from "@nextui-org/react";
+import Layout from "../components/Layout";
+import SidebarItems from "../components/Sidebaritems";
+import { Avatar } from "@nextui-org/react";
 import profile from "../assets/profile.png";
-import {Input, Tooltip} from "@nextui-org/react";
+import { Input, Tooltip } from "@nextui-org/react";
 import { EditIcon } from "../components/common/icon";
-
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const TeacherDesboard = () => {
+  const [user, setUser] = useState([]);
+  const [isDisabled, setIsDisabled] = useState(true);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const getUser = async () => {
+      const response = await axios.get("http://localhost:3000/user/teacher", {
+        withCredentials: true,
+      });
+      if (isMounted) {
+        setUser(response.data);
+      }
+    };
+
+    getUser();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const editUserDetails = () => {
+    setIsDisabled(false);
+  };
+
+  const updateUserDetails = async () => {
+    let { Id, name, email, phoneNo } = user;
+    try {
+      const response = await axios.put(
+        "http://localhost:3000/user/teacher",
+        {
+          Id,
+          name,
+          email,
+          phoneNo,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      if (response) {
+        setIsDisabled(true);
+        alert("User Details Updated Successfully");
+        window.location.reload();
+      }
+    } catch (error) {
+      alert("Something went wrong");
+      console.log(error);
+    }
+  };
   return (
     <>
       <Layout>
@@ -18,25 +70,48 @@ const TeacherDesboard = () => {
                 src={profile}
                 className="w-24 h-24 text-large border-solid border-2 border-sky-500"
               />
-              <Tooltip content={`Edit Details`}>
+              <div className="flex gap-4">
                 <button
-                  onClick={() => {}}
-                  title="Drag to sort"
-                  className={`mt-6 hover:bg-primary/20 p-1 hover:text-primary text-slate-400 flex items-center rounded-small justify-center w-10 h-10 outline-none`}
+                  className="bg-yellow-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded h-10 mt-6"
+                  hidden={isDisabled}
+                  onClick={updateUserDetails}
                 >
-                  <EditIcon width={24} height={24} />
+                  Save
                 </button>
-              </Tooltip>
+                <Tooltip content={`Edit Details`}>
+                  <button
+                    onClick={editUserDetails}
+                    title="Drag to sort"
+                    className={`mt-6 hover:bg-primary/20 p-1 hover:text-primary text-slate-400 flex items-center rounded-small justify-center w-10 h-10 outline-none`}
+                  >
+                    <EditIcon width={24} height={24} />
+                  </button>
+                </Tooltip>
+              </div>
             </div>
             <div className="p-2 gap-4 m-5 grid">
+              <div>
+                <Input
+                  color="primary"
+                  type="text"
+                  variant="bordered"
+                  label="Teacher ID"
+                  value={user.Id}
+                  onChange={(e) => setUser({ ...user, Id: e.target.value })}
+                  defaultValue="1234"
+                  disabled={isDisabled}
+                />
+              </div>
               <div>
                 <Input
                   color="primary"
                   type="Name"
                   variant="bordered"
                   label="Name"
-                  value="Jhone Dea"
-                  disabled={false}
+                  value={user.name}
+                  onChange={(e) => setUser({ ...user, name: e.target.value })}
+                  defaultValue="Jhon Doe"
+                  disabled={isDisabled}
                 />
               </div>
               <div>
@@ -45,8 +120,10 @@ const TeacherDesboard = () => {
                   type="email"
                   variant="bordered"
                   label="Email"
-                  value="Niwash@gmail.com"
-                  disabled={false}
+                  value={user.email}
+                  onChange={(e) => setUser({ ...user, email: e.target.value })}
+                  defaultValue="example@mail.com"
+                  disabled={isDisabled}
                 />
               </div>
               <div>
@@ -54,19 +131,13 @@ const TeacherDesboard = () => {
                   color="primary"
                   type="text"
                   variant="bordered"
-                  label="Department"
-                  value="CCSA"
-                  disabled={false}
-                />
-              </div>
-              <div>
-                <Input
-                  color="primary"
-                  type="text"
-                  variant="bordered"
-                  label="TeacherID"
-                  value="DUITEC2013244"
-                  disabled={false}
+                  label="Phone Number"
+                  value={user.phoneNo}
+                  onChange={(e) =>
+                    setUser({ ...user, phoneNo: e.target.value })
+                  }
+                  defaultValue="1234567890"
+                  disabled={isDisabled}
                 />
               </div>
             </div>
@@ -75,6 +146,6 @@ const TeacherDesboard = () => {
       </Layout>
     </>
   );
-}
+};
 
-export default TeacherDesboard
+export default TeacherDesboard;

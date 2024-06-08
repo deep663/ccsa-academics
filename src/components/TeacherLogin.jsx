@@ -21,15 +21,14 @@ const TeacherLogin = () => {
           password,
         }
       );
-      // console.log(response.data);
+      // console.log(response);
       signin({
         auth: {
-          token: response.data.token,
+          token: response.data.accessToken,
           type: "Bearer",
         },
         userState: { userType: "teacher", email: email },
       });
-
       if (response.status === 200) {
         alert("Login successful");
         navigate("/teacherdashboard");

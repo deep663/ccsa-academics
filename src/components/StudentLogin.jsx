@@ -22,7 +22,6 @@ const StudentLogin = () => {
           password,
         }
       );
-      console.log(response);
       signin({
         auth: {
           token: response.data.token,

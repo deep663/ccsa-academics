@@ -8,7 +8,15 @@ const jwt = require("jsonwebtoken");
 //@access public
 const registerStudent = asyncHandler(async (req, res) => {
   const { name, rollNo, course, semester, email, phoneNo, password } = req.body;
-  if (!name || !rollNo || !course || !semester || !email || !phoneNo || !password) {
+  if (
+    !name ||
+    !rollNo ||
+    !course ||
+    !semester ||
+    !email ||
+    !phoneNo ||
+    !password
+  ) {
     res.status(400);
     throw new Error("Please add all fields");
   }
@@ -52,15 +60,15 @@ const loginStudent = asyncHandler(async (req, res) => {
     throw new Error("No user found with this email");
   }
   if (user && (await bcrypt.compare(password, user.password))) {
-    const accessToken = jwt.sign({
-      user: {
-        userType: user.userType,
-        name: user.name,
-        email: user.email,
-    },
-    },
-    process.env.ACCESS_TOKEN_SECRET,
-    { expiresIn: "1d" },
+    const accessToken = jwt.sign(
+      {
+        user: {
+          id: user._id,
+          email: user.email,
+        },
+      },
+      process.env.ACCESS_TOKEN_SECRET,
+      { expiresIn: "1d" }
     );
     res.status(200).json({ token: accessToken });
   } else {
@@ -69,6 +77,35 @@ const loginStudent = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { registerStudent, loginStudent };
+//@desc Get a student
+//@route GET /user/student/
+//@access private
+const getStudent = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    res.status(404).json("User not found");
+    throw new Error("No user found");
+  } else {
+    const { name, rollNo, course, email, semester, phoneNo } = user;
+    res.status(200).json({ name, rollNo, course, email, semester, phoneNo });
+  }
+});
 
+//@desc Update a student
+//@route PUT /user/student
+//@access private
+const updateStudent = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    res.status(404).json("User not found");
+    throw new Error("User not found");
+  } else {
+    // const { name, rollNo, course, semester, email, phoneNo } = req.body;
+    const updatedUser = await User.findByIdAndUpdate(req.user.id, {$set: req.body}, {
+      new: true,
+    });
+    res.status(200).json("User details updated successfully");
+  }
+});
 
+module.exports = { registerStudent, loginStudent, getStudent, updateStudent };

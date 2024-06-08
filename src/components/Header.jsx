@@ -48,14 +48,13 @@ function Header() {
                 as="button"
                 className="transition-transform"
                 color="secondary"
-                name="Jason Hughes"
                 size="sm"
                 src={profile}
               />
             </DropdownTrigger>
             <DropdownMenu aria-label="Profile Actions" variant="flat">
               <DropdownItem key="profile" className="h-14 gap-2">
-                {/* <p className="font-semibold">Signed in as</p> */}
+                {/* <p className="font-bold">{auth.name}</p> */}
                 <p className="font-semibold">{auth.email}</p>
               </DropdownItem>
               <DropdownItem key="logout" color="danger" onClick={logOut}>

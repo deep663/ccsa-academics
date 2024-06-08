@@ -3,13 +3,18 @@ const connectDB = require("./config/dbConnection");
 const { errorHandler } = require("./middleware/errorHandler");
 require("dotenv").config();
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 
 connectDB();
 const app = express();
 
 const port = 3000;
 
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true 
+}));
+app.use(cookieParser());
 app.use("/files", express.static("files"))
 app.use(express.json());
 app.use(errorHandler);

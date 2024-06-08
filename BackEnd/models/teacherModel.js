@@ -7,7 +7,8 @@ const teacherSchema = mongoose.Schema({
     },
     Id: {
         type: String,
-        auto: true
+        required: [true, "Please add an Id"],
+        unique: [true, "Id already exists"],
     },
     name: {
         type: String,

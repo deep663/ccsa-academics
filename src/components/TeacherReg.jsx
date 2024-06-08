@@ -5,6 +5,7 @@ import Footer from "./Footer";
 import axios from "axios";
 
 const TeacherReg = () => {
+  const [Id, setId] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,6 +25,7 @@ const TeacherReg = () => {
       const response = await axios.post(
         "http://localhost:3000/user/teacherRegister",
         {
+          Id,
           name,
           email,
           phoneNo,
@@ -66,6 +68,16 @@ const TeacherReg = () => {
             Teacher Register
           </h2>
           <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+              <label className="block text-gray-700">Teacher ID</label>
+              <input
+                type="text"
+                value={Id}
+                onChange={(e) => setId(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded mt-1"
+                required
+              />
+            </div>
             <div>
               <label className="block text-gray-700">Name</label>
               <input
