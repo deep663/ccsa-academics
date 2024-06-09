@@ -1,11 +1,12 @@
 import Layout from "../components/Layout";
-import SidebarItems from "../components/Sidebaritems";
 import { Avatar } from "@nextui-org/react";
 import profile from "../assets/profile.png";
 import { Input, Tooltip } from "@nextui-org/react";
 import { EditIcon } from "../components/common/icon";
 import { useEffect, useState } from "react";
 import axios from "axios";
+// import SideBarItemOne from "../components/TeacherSidebar";
+import SidebarTeacher from "../components/SidebarTeacher";
 
 const TeacherDesboard = () => {
   const [user, setUser] = useState([]);
@@ -63,7 +64,7 @@ const TeacherDesboard = () => {
     <>
       <Layout>
         <div className="bg-red h-[100vh] flex gap-16">
-          <SidebarItems />
+          <SidebarTeacher />
           <div className="p-4 flex flex-col gap-4 bg-slate-100 w-[780px] h-[500px] rounded-lg mt-10">
             <div className="flex justify-between items-center p-4">
               <Avatar

@@ -3,19 +3,20 @@ import { cn } from "@nextui-org/react";
 import { ChevLeft, ClipIcon, InfoIcon } from "./common/icon";
 import { useNavigate } from "react-router-dom";
 
+// eslint-disable-next-line react/prop-types
 const IconWrapper = ({ children, className }) => (
   <div className={cn(className, "flex items-center rounded-small justify-center w-7 h-7")}>
     {children}
   </div>
 );
 
-export default function SidebarItems() {
+export default function SidebarTeacher() {
   const navigate = useNavigate();
 
   const handleAction = (key) => {
     switch (key) {
       case "final_result":
-        navigate("/finalresults");
+        navigate("/uploadFinalResults");
         break;
       case "insem_result":
         navigate("/insemmarks");
@@ -24,7 +25,7 @@ export default function SidebarItems() {
         navigate("/lab");
         break;
       case "assignments":
-        navigate("/viewAssignment");
+        navigate("/assignment");
         break;
       case "certificates":
         navigate("/uploadFinalResults");
