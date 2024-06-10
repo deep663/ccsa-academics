@@ -22,13 +22,19 @@ function Footer() {
               </span>
             </NavLink>
             <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-white sm:mb-0 dark:text-gray-400">
-            <li>
-                <NavLink to={(auth.userType === "student" ? "/" : "/teacherDashboard")} className="hover:text-[#409d5e] me-4 md:me-6">
+              {auth && (<li>
+                <NavLink
+                  to={auth.userType === "student" ? "/" : "/teacherDashboard"}
+                  className="hover:text-[#409d5e] me-4 md:me-6"
+                >
                   Home
                 </NavLink>
-              </li>
+              </li>)}
               <li>
-                <NavLink to="/about" className="hover:text-[#409d5e] me-4 md:me-6">
+                <NavLink
+                  to="/about"
+                  className="hover:text-[#409d5e] me-4 md:me-6"
+                >
                   About
                 </NavLink>
               </li>
@@ -38,7 +44,7 @@ function Footer() {
                 </a>
               </li>
               <li>
-                <a href="" className="hover:text-[#409d5e]">
+                <a href="/contact" className="hover:text-[#409d5e]">
                   Contact
                 </a>
               </li>
