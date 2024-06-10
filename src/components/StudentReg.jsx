@@ -25,19 +25,22 @@ const StudentReg = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:3000/user/studentRegister", {
-        name,
-        rollNo,
-        course,
-        semester,
-        email,
-        phoneNo,
-        password,
-      });
+      const response = await axios.post(
+        "http://localhost:3000/user/studentRegister",
+        {
+          name,
+          rollNo,
+          course,
+          semester,
+          email,
+          phoneNo,
+          password,
+        }
+      );
 
       if (response.status === 201) {
         alert("Registration successful!");
-        navigate('/studentlogin');
+        navigate("/studentlogin");
       } else {
         alert(`Registration failed`);
         console.log(response.data);
@@ -56,7 +59,7 @@ const StudentReg = () => {
   return (
     <>
       <div className="min-h-screen flex">
-      <div className="w-1/2 bg-[#13178f] text-white flex flex-col justify-center p-8">
+        <div className="w-1/2 bg-[#13178f] text-white flex flex-col justify-center p-8">
           <div className="mb-8 flex justify-center items-center">
             <img src={logo} alt="University Logo" className="h-40" />
           </div>
@@ -67,7 +70,9 @@ const StudentReg = () => {
           </div>
         </div>
         <div className="w-1/2 bg-white flex flex-col justify-center p-8">
-          <h2 className="text-3xl font-bold mb-8 text-[#13178f]">Student Register</h2>
+          <h2 className="text-3xl font-bold mb-8 text-[#13178f]">
+            Student Register
+          </h2>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label className="block text-gray-700">Name</label>
@@ -89,25 +94,37 @@ const StudentReg = () => {
                 required
               />
             </div>
-            <div>
-              <label className="block text-gray-700">Course</label>
-              <input
-                type="text"
-                value={course}
-                onChange={(e) => setCourse(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded mt-1"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-gray-700"> Semester </label>
-              <input
-                type="text"
-                value={semester}
-                onChange={(e) => setSemester(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded mt-1"
-                required
-              />
+            <div className="flex gap-4">
+              <div className="basis-1/2">
+                <label className="block text-gray-700">Course</label>
+                <select
+                  value={course}
+                  onChange={(e) => setCourse(e.target.value)}
+                  className="w-full p-2 border border-gray-300 rounded mt-1"
+                  required
+                >
+                  <option value="">Select Course</option>
+                  <option value="BCA">BCA</option>
+                  <option value="MCA">MCA</option>
+                </select>
+              </div>
+              <div className="basis-1/2">
+                <label className="block text-gray-700">Semester</label>
+                <select
+                  value={semester}
+                  onChange={(e) => setSemester(e.target.value)}
+                  className="w-full p-2 border border-gray-300 rounded mt-1"
+                  required
+                >
+                  <option value="">Select Semester</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                </select>
+              </div>
             </div>
             <div>
               <label className="block text-gray-700">Email</label>
@@ -157,7 +174,6 @@ const StudentReg = () => {
             </button>
           </form>
         </div>
-        
       </div>
       <Footer />
     </>
