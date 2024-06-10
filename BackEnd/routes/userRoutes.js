@@ -3,7 +3,7 @@ const router = express.Router();
 const { registerTeacher, loginTeacher, getTeacher, updateTeacher } = require("../controllers/teacherController");
 const { registerStudent, loginStudent, getStudent, updateStudent } = require("../controllers/studentController");
 const validateToken = require("../middleware/validateTokenHandler");
-
+const { postResults, getResults } = require("../controllers/resultController");
 
 router.route("/teacherRegister").post(registerTeacher);
 router.route("/teacherLogin").post(loginTeacher);
@@ -14,6 +14,8 @@ router.route("/studentRegister").post(registerStudent);
 router.route("/studentLogin").post(loginStudent);
 router.route("/student").get(validateToken, getStudent);
 router.route("/student").put(validateToken, updateStudent);
+
+
 
 
 module.exports = router;

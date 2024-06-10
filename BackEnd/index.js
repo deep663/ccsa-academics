@@ -45,6 +45,10 @@ const storage = multer.diskStorage({
 require("./models/assignmentModel");
 const assignmentSchema = mongoose.model("assignment");
 
+require("./models/resultModel");
+const resultSchema = mongoose.model("resluts");
+
+
 const upload = multer({ storage: storage });
 
 
@@ -62,6 +66,23 @@ app.post("/upload-assignment", upload.single("file"), async(req, res) => {
   }
 })
 
+app.post("/upload-results", upload.single("file"), async (req, res) => {
+    
+    console.log(req.file);
+    const title = req.body.title;
+    const semester = req.body.semester;
+    const course = req.body.course;
+    const filename = req.file.filename;
+    
+    try {
+        await resultSchema.create({title : title, semester: semester,
+             course: course, pdf : filename});
+             res.send({status: "ok"});
+    } catch (error) {
+        res.json({status: error})
+    }
+})
+
 app.get("/get-assignment", async(req, res) => { 
   try {
     assignmentSchema.find({}).then((data) => {
@@ -71,5 +92,15 @@ app.get("/get-assignment", async(req, res) => {
     res.json({ status: error });
   }
 })
+
+app.get("/get-results", async (req, res) => {
+  try {
+    resultSchema.find({}).then((data) => {
+      res.send({ status: "ok", data: data });
+    });
+  } catch (error) {
+    res.json({ status: error });
+  }
+});
 
 

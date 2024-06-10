@@ -1,6 +1,7 @@
 import Layout from "../components/Layout";
 import { useEffect, useState } from "react";
-import {  Button } from "@nextui-org/react"
+import {  Button } from "@nextui-org/react";
+
 import axios from "axios";
 
 const ViewAssignment = () => {
@@ -33,12 +34,14 @@ const ViewAssignment = () => {
                 return (
                   <div key={data.id}>
                   <h6>Title : {data.title}</h6>
+                  <h6>Semester : {data.semester}</h6>
+                  <h6>Course : {data.course}</h6>
+                                 
                   <Button color="primary" onClick={()=> showPdf(data.pdf)}>Showpdf</Button>
                   </div>
                 )
               })
             }
-            
           </div>
         </div>
       </div>
