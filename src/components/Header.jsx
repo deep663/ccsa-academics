@@ -12,6 +12,7 @@ import {
 
 import logo from "../assets/uniLogo.png";
 import profile from "../assets/profile.png";
+import profile1 from "../assets/profile1.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import useSignOut from "react-auth-kit/hooks/useSignOut";
 import useAuthUser from 'react-auth-kit/hooks/useAuthUser';
@@ -49,7 +50,7 @@ function Header() {
                 className="transition-transform"
                 color="secondary"
                 size="sm"
-                src={profile}
+                src={(auth.userType) === "student" ? profile1 : profile}
               />
             </DropdownTrigger>
             <DropdownMenu aria-label="Profile Actions" variant="flat">

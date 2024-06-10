@@ -6,8 +6,6 @@ import Assignment from "./pages/Assignment";
 import Dashboard from "./pages/Dashboard";
 import FinalResults from "./pages/FinalResults";
 import InsemMarks from "./pages/InsemMarks";
-
-import About from "./pages/About";
 import Pagenotfound from "./pages/Pagenotfound";
 import TeacherReg from "./components/TeacherReg";
 import StudentReg from "./components/StudentReg";
@@ -18,6 +16,8 @@ import AuthOutlet from "@auth-kit/react-router/AuthOutlet";
 import ViewAssignment from "./pages/ViewAssignment";
 import Lab from "./pages/Lab";
 import UplodaFinalResults from "./pages/UplodaFinalResults";
+import About from "./components/About";
+import Contact from "./components/Contact";
 function App() {
   return (
     <Router>
@@ -28,10 +28,11 @@ function App() {
         <Route path="/studentreg" element={<StudentReg />} />
         <Route path="/studentlogin" element={<StudentLogin />} />
         <Route path="/teacherlogin" element={<TeacherLogin />} />
+        <Route path="/about" element={<About/>} />
+        <Route path="/contact" element={<Contact/>} />
         <Route element={<AuthOutlet fallbackPath="/login" />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/teacherdashboard" element={<TeacherDesboard />} />
-          <Route path="/about" element={<About />} />
           <Route path="/viewAssignment" element={<ViewAssignment />} />
           <Route path="/finalresults" element={<FinalResults />} />
           <Route path="/insemmarks" element={<InsemMarks />} />

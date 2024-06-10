@@ -1,6 +1,8 @@
 import { NavLink } from "react-router-dom";
 import uniLogo from "../assets/uniLogo.png";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 function Footer() {
+  const auth = useAuthUser();
   return (
     <>
       <footer className="w-full bg-[#1a1a1a] shadow ">
@@ -20,6 +22,11 @@ function Footer() {
               </span>
             </NavLink>
             <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-white sm:mb-0 dark:text-gray-400">
+            <li>
+                <NavLink to={(auth.userType === "student" ? "/" : "/teacherDashboard")} className="hover:text-[#409d5e] me-4 md:me-6">
+                  Home
+                </NavLink>
+              </li>
               <li>
                 <NavLink to="/about" className="hover:text-[#409d5e] me-4 md:me-6">
                   About
@@ -31,12 +38,7 @@ function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-[#409d5e] me-4 md:me-6">
-                  Licensing
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-[#409d5e]">
+                <a href="" className="hover:text-[#409d5e]">
                   Contact
                 </a>
               </li>
