@@ -5,7 +5,6 @@ import { Input, Tooltip } from "@nextui-org/react";
 import { EditIcon } from "../components/common/icon";
 import { useEffect, useState } from "react";
 import axios from "axios";
-// import SideBarItemOne from "../components/TeacherSidebar";
 import SidebarTeacher from "../components/SidebarTeacher";
 
 const TeacherDesboard = () => {

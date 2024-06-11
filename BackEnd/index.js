@@ -48,6 +48,11 @@ const assignmentSchema = mongoose.model("assignment");
 require("./models/resultModel");
 const resultSchema = mongoose.model("resluts");
 
+require("./models/insemModel");
+const insemSchema = mongoose.model("insem");
+
+require("./models/certificatesModel")
+const certificatesSchema = mongoose.model("certificates")
 
 const upload = multer({ storage: storage });
 
@@ -83,6 +88,38 @@ app.post("/upload-results", upload.single("file"), async (req, res) => {
     }
 })
 
+app.post("/upload-insemResult", upload.single("file"), async (req, res) => {
+    
+    console.log(req.file);
+    const title = req.body.title;
+    const semester = req.body.semester;
+    const course = req.body.course;
+    const filename = req.file.filename;   
+    try {
+        await insemSchema.create({title : title, semester: semester,
+             course: course, pdf : filename});
+             res.send({status: "ok"});
+    } catch (error) {
+        res.json({status: error})
+    }
+})
+
+app.post("/upload-certificates", upload.single("file"), async (req, res) => {
+    console.log(req.file);
+    const title = req.body.title;
+    const semester = req.body.semester;
+    const course = req.body.course;
+    const filename = req.file.filename;
+    try {
+        await certificatesSchema.create({title : title, semester: semester,
+             course: course, pdf : filename});
+             res.send({status: "ok"});
+    } catch (error) {
+        res.json({status: error}
+        )
+    }
+})
+
 app.get("/get-assignment", async(req, res) => { 
   try {
     assignmentSchema.find({}).then((data) => {
@@ -103,4 +140,23 @@ app.get("/get-results", async (req, res) => {
   }
 });
 
+app.get("/get-insemResults", async (req, res) => {
+  try {
+    insemSchema.find({}).then((data) => {
+      res.send({ status: "ok", data: data });
+    });
+  } catch (error) {
+    res.json({ status: error });
+  }
+});
+
+app.get("/get-certificates", async (req, res) => {
+  try {
+    certificatesSchema.find({}).then((data) => {
+      res.send({ status: "ok", data: data });
+    });
+  } catch (error) {
+    res.json({ status: error });
+  }
+}); 
 

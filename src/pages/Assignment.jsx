@@ -21,7 +21,16 @@ function Assignment() {
       const result = await axios.post("http://localhost:3000/upload-assignment", formData, {
         headers: {"Content-Type": "multipart/form-data"},
       });
-      console.log(result);
+      
+
+      if(result) {
+        alert("Assignment Uploaded Successfully");
+        setTitle("");
+        setFile("");
+        setSemester("");
+        setCourse("");
+        window.location.reload();
+      }
   }
 
   const getAssignment =  async () => {

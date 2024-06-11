@@ -2,14 +2,20 @@ import { Listbox, ListboxItem } from "@nextui-org/react";
 import { cn } from "@nextui-org/react";
 import { ChevLeft, ClipIcon, InfoIcon } from "./common/icon";
 import { useNavigate } from "react-router-dom";
+import AssignIcon from "../assets/assignmenticon.png";
 
 const IconWrapper = ({ children, className }) => (
-  <div className={cn(className, "flex items-center rounded-small justify-center w-7 h-7")}>
+  <div
+    className={cn(
+      className,
+      "flex items-center rounded-small justify-center w-7 h-7"
+    )}
+  >
     {children}
   </div>
 );
 
-export default function SidebarItems() {
+function SidebarItems() {
   const navigate = useNavigate();
 
   const handleAction = (key) => {
@@ -18,19 +24,15 @@ export default function SidebarItems() {
         navigate("/finalresults");
         break;
       case "insem_result":
-        navigate("/insemmarks");
-        break;
-      case "lab_results":
-        navigate("/lab");
+        {
+          navigate("/viewInsemMarks");
+        }
         break;
       case "assignments":
         navigate("/viewAssignment");
         break;
       case "certificates":
-        navigate("/uploadFinalResults");
-        break;
-      case "projects":
-        navigate("/projects"); // Add the route for projects if it exists
+        navigate("/viewCertificate");
         break;
       default:
         break;
@@ -46,6 +48,16 @@ export default function SidebarItems() {
         base: "px-3 first:rounded-t-medium last:rounded-b-medium rounded-none gap-4 data-[hover=true]:bg-default-100/80",
       }}
     >
+      <ListboxItem
+        key="assignments"
+        startContent={
+          <IconWrapper className="bg-warning/10 text-warning">
+            <img src={AssignIcon} alt="assignment" />
+          </IconWrapper>
+        }
+      >
+        Assignments
+      </ListboxItem>
       <ListboxItem
         key="final_result"
         startContent={
@@ -67,26 +79,6 @@ export default function SidebarItems() {
         Insem Result
       </ListboxItem>
       <ListboxItem
-        key="lab_results"
-        startContent={
-          <IconWrapper className="bg-secondary/10 text-secondary">
-            {/* Add an appropriate icon here */}
-          </IconWrapper>
-        }
-      >
-        Lab Results
-      </ListboxItem>
-      <ListboxItem
-        key="assignments"
-        startContent={
-          <IconWrapper className="bg-warning/10 text-warning">
-            {/* Add an appropriate icon here */}
-          </IconWrapper>
-        }
-      >
-        Assignments
-      </ListboxItem>
-      <ListboxItem
         key="certificates"
         startContent={
           <IconWrapper className="bg-default/50 text-foreground">
@@ -96,16 +88,8 @@ export default function SidebarItems() {
       >
         Certificates
       </ListboxItem>
-      <ListboxItem
-        key="projects"
-        startContent={
-          <IconWrapper className="bg-warning/10 text-warning">
-            {/* Add an appropriate icon here */}
-          </IconWrapper>
-        }
-      >
-        Projects
-      </ListboxItem>
     </Listbox>
   );
 }
+
+export default SidebarItems;
