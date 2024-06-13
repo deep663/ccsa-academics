@@ -46,7 +46,7 @@ require("./models/assignmentModel");
 const assignmentSchema = mongoose.model("assignment");
 
 require("./models/resultModel");
-const resultSchema = mongoose.model("resluts");
+const resultSchema = mongoose.model("results");
 
 require("./models/insemModel");
 const insemSchema = mongoose.model("insem");
