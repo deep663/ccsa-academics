@@ -21,4 +21,4 @@ const resultDto = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("resluts", resultDto);
+module.exports = mongoose.model("results", resultDto);

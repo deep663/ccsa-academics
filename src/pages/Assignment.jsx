@@ -17,7 +17,7 @@ function Assignment() {
       formData.append("file", file);
       formData.append("semester", semester);
       formData.append("course", course);
-      console.log(title, semester, course, file);
+      // console.log(title, semester, course, file);
       const result = await axios.post("http://localhost:3000/upload-assignment", formData, {
         headers: {"Content-Type": "multipart/form-data"},
       });
